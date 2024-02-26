@@ -98,7 +98,7 @@ function Register() {
               <Form.Label>パスワード確認</Form.Label>
               <Form.Control
                 type='password' 
-                placeholder='パスワード（6文字以上）'
+                placeholder='パスワード 6文字以上）'
                 {...register('password_confirmation', {
                   required: 'パスワードは必須です。',
                   minLength: { value: 6, message: '6文字以上で入力してください。' },

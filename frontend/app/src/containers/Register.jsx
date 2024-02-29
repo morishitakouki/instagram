@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,7 +27,6 @@ function Register() {
   }, [trigger]);
 
   const onSubmit = async (data) => {
-    console.log(data); 
     try {
       const response = await fetch('http://localhost:3001/api/v1/auth', {
         method: 'POST',
@@ -39,10 +41,24 @@ function Register() {
           confirm_success_url: 'http://localhost:3000',
         }),
       });
+     
+       
+      if (response.ok) {
+        // レスポンスヘッダーから認証情報を取得
+        const accessToken = response.headers.get('access-token');
+        const client = response.headers.get('client');
+        const uid = response.headers.get('uid');
 
-      const result = await response.json();
+        // 認証情報をCookieに保存
+        Cookies.set('access-token', accessToken, { expires: 7 }); 
+        Cookies.set('client', client, { expires: 7 });
+        Cookies.set('uid', uid, { expires: 7 });
 
-      console.log(result);
+        navigate('/index'); 
+
+      } else {
+        console.error('認証エラー');
+      }
     } catch (error) {
       console.error('新規登録中にエラーが発生しました:', error);
     }

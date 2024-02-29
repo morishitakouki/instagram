@@ -5,6 +5,7 @@ import './App.css'; // CSSファイルをインポート
 import Create from './containers/Create.jsx';
 import Index from './containers/Index.jsx';
 import Register from './containers/Register.jsx';
+import Header from './components/Header.jsx';
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <Router>
         <div className="sidebar">
           <Sidebar/>
+        </div>
+        <div className='header'>
+          <Header/>
         </div>
         <div className="content">
           <Routes>

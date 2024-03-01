@@ -1,12 +1,37 @@
-import React from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Navbar, Container, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { UserContext } from '../App'; 
 
 const Header = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // ログアウト処理
+    // 1. localStorageからユーザー情報を削除
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('client');
+    localStorage.removeItem('uid');
+
+
+  
+    setCurrentUser(null);
+
+    navigate('/login');
+    
+  };
+
   return (
     <Navbar className="custom-navbar" variant="light">
-      <Container>
-        <Navbar.Brand href="#home">My Stylish Header</Navbar.Brand>
+      <Container className="justify-content-end">
+        <Navbar.Brand href="#home">{currentUser?.name}</Navbar.Brand>
+        {currentUser && (
+          <Button variant="outline-primary" onClick={handleLogout}>
+            ログアウト
+          </Button>
+        )}
       </Container>
     </Navbar>
   );

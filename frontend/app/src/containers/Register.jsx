@@ -45,16 +45,8 @@ function Register() {
        
       if (response.ok) {
         // レスポンスヘッダーから認証情報を取得
-        const accessToken = response.headers.get('access-token');
-        const client = response.headers.get('client');
-        const uid = response.headers.get('uid');
-
-        // 認証情報をCookieに保存
-        Cookies.set('access-token', accessToken, { expires: 7 }); 
-        Cookies.set('client', client, { expires: 7 });
-        Cookies.set('uid', uid, { expires: 7 });
-
-        navigate('/index'); 
+       
+        navigate('/login'); 
 
       } else {
         console.error('認証エラー');

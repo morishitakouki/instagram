@@ -49,8 +49,18 @@ function Create() {
     }
 
     const postData = { title, content };
+    const accessToken = localStorage.getItem('access-token');
+    const client = localStorage.getItem('client');
+    const uid = localStorage.getItem('uid');
 
-    axios.post(postsAPI, postData)
+    axios.post(postsAPI, postData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'access-token': accessToken ,
+        'client':client,         
+        'uid': uid,           
+      },
+     } )
       .then(() => {
         setShowMessage(true);
         setError('');

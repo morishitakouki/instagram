@@ -9,14 +9,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // ログアウト処理
-    // 1. localStorageからユーザー情報を削除
+  
     localStorage.removeItem('access-token');
     localStorage.removeItem('client');
     localStorage.removeItem('uid');
 
-
-  
     setCurrentUser(null);
 
     navigate('/login');
@@ -26,7 +23,7 @@ const Header = () => {
   return (
     <Navbar className="custom-navbar" variant="light">
       <Container className="justify-content-end">
-        <Navbar.Brand href="#home">{currentUser?.name}</Navbar.Brand>
+        <Navbar.Brand href="#home"> {currentUser.name}さん</Navbar.Brand>
         {currentUser && (
           <Button variant="outline-primary" onClick={handleLogout}>
             ログアウト

@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const getCurrentUser = async () => {
-  // ローカルストレージから認証情報を取得
+ 
   const accessToken = localStorage.getItem('access-token');
   const client = localStorage.getItem('client');
   const uid = localStorage.getItem('uid');
 
-  // ローカルストレージに認証情報が存在しない場合は処理を終了
+
   if (!accessToken || !client || !uid) {
     console.log('One or more required items are missing from local storage.');
     return;
@@ -25,10 +25,10 @@ const getCurrentUser = async () => {
       }
     );
     console.log(response);
-    return response.data; // 必要に応じて処理を追加
+    return response.data; 
   } catch (error) {
     console.error('Error fetching current user:', error);
-    throw error; // または適切なエラー処理を行う
+    throw error; 
   }
 };
 

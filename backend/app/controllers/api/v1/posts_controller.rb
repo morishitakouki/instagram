@@ -2,10 +2,12 @@ module Api
   module V1
     class PostsController < ApplicationController
       protect_from_forgery 
+     
       
 
       def index
-        posts = Post.all
+        user = current_api_v1_user
+        posts = user.posts
         render json: posts
       end
 
@@ -18,11 +20,13 @@ module Api
         end
       end
 
-      private
+      private 
 
-      def post_params
-        params.require(:post).permit(:title, :content)
-      end
+        def post_params
+          params.require(:post).permit(:title, :content).merge(user_id: current_api_v1_user.id)
+        end
+
+    
     end
   end
 end
